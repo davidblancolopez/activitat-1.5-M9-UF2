@@ -1,21 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package activitat.pkg1.pkg5.m9.uf2;
 
-/**
- *
- * @author ALUMNEDAM
- */
 public class Activitat15M9UF2 {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
     }
+
+    /*
+    public void ingressar(float diners) {
+        sendWait();
+        float aux;
+        aux = llegirSaldo();
+        aux = aux + diners;
+        saldo = aux;
+        guardarSaldo(saldo);
+        sendSignal();
+    }
+    */
+    
+    /*
+    public void treure(float diners) {
+        sendWait();
+        float aux;
+        aux = llegirSaldo();
+        aux = aux - diners;
+        saldo = aux;
+        guardarSaldo(saldo);
+        sendSignal();
+    }
+    */
     
 }

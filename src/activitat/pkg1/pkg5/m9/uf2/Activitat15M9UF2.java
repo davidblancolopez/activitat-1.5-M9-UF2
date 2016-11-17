@@ -17,8 +17,8 @@ public class Activitat15M9UF2 {
             public void run() {
                 try {
                     semaphore.acquire();
-                    ingressar(20);
-                    System.out.println(Thread.currentThread().getName() + " " + llegirSaldo());
+                    ingressar(50);
+                    System.out.println("Saldo actual: " + llegirSaldo());
                     semaphore.release();
                 } catch (Exception e) {
 
@@ -31,7 +31,7 @@ public class Activitat15M9UF2 {
             public void run() {
                 try {
                     semaphore.acquire();
-                    treure(20);
+                    treure(50);
                     System.out.println(Thread.currentThread().getName() + " " + llegirSaldo());
                     semaphore.release();
                 } catch (Exception e) {
@@ -41,7 +41,7 @@ public class Activitat15M9UF2 {
             }
         };
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             new Thread(runIngres).start();
             new Thread(runTreure).start();
         }

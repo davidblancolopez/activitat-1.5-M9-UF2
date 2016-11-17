@@ -5,85 +5,73 @@ import java.util.concurrent.Semaphore;
 
 public class Activitat15M9UF2 {
 
-    float saldo = 2000;
-
+    public static float saldo = 2000;
 
     public static void main(String[] args) {
 
-        final Activitat15M9UF2 example = new Activitat15M9UF2();
+        //Declaració del semafor
+        final Semaphore semaphore = new Semaphore(1, true);
 
-        final Semaphore semaphore = new Semaphore(1);
-
-        final Runnable r = new Runnable() {
+        final Runnable runIngres = new Runnable() {
 
             public void run() {
+                try {
+                    semaphore.acquire();
+                    ingressar(20);
+                    System.out.println(Thread.currentThread().getName() + " " + llegirSaldo());
+                    semaphore.release();
+                } catch (Exception e) {
 
-                while (true) {
+                }
+            }
+        };
 
-                    try {
+        final Runnable runTreure = new Runnable() {
 
-                        semaphore.acquire();
-
-                        //Sección crítica a proteger
-                        example.printSomething();
-
-                        Thread.sleep(1000);
-
-                        semaphore.release();
-
-                    } catch (Exception ex) {
-
-                        System.out.println(" — Interrupted…");
-
-                        ex.printStackTrace();
-
-                    }
+            public void run() {
+                try {
+                    semaphore.acquire();
+                    treure(20);
+                    System.out.println(Thread.currentThread().getName() + " " + llegirSaldo());
+                    semaphore.release();
+                } catch (Exception e) {
 
                 }
 
             }
-
         };
 
-        new Thread(r).start();
-
-        new Thread(r).start();
-
-    }
-
-    public void printSomething() {
-
-        System.out.println("Saldo actual: " + saldo );
+        for (int i = 0; i < 10; i++) {
+            new Thread(runIngres).start();
+            new Thread(runTreure).start();
+        }
 
     }
 
-    public void ingressar(float diners) {
-        sendWait();
-        float aux;
+    public static void ingressar(float diners) {
+        float aux, saldo;
         aux = llegirSaldo();
-        aux = aux + diners;
+        aux += diners;
         saldo = aux;
         guardarSaldo(saldo);
-        sendSignal();
     }
 
-    public void treure(float diners) {
-        sendWait();
+    public static void treure(float diners) {
+
         float aux;
         aux = llegirSaldo();
         aux = aux - diners;
         saldo = aux;
         guardarSaldo(saldo);
-        sendSignal();
+
     }
 
-    public float llegirSaldo(){  
+    public static float llegirSaldo() {
         return saldo;
     }
-    
-    public void guardarSaldo(float saldoActualitzat){
+
+    public static void guardarSaldo(float saldoActualitzat) {
         saldo = saldoActualitzat;
     }
-    
-    
+
 }
